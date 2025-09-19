@@ -1,0 +1,65 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f7e7ce;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Cookie styling */
+  .cookie {
+    width: 150px;
+    height: 150px;
+    background-image: url('cookie.png'); /* Replace with the path to your cookie image */
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    margin: 20px auto;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Stats section styling */
+  .stats {
+    font-size: 20px;
+    margin: 10px 0;
+  }
+  
+  /* Upgrade button styling */
+  .upgrade-btn {
+    background-color: #d2691e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+  }
+  
+  .upgrade-btn:hover {
+    background-color: #a0522d;
+  }
+  
+  /* Login form styling */
+  .login-container {
+    margin: 20px;
+  }
+  
+  .login-container input {
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  
+  .login-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }

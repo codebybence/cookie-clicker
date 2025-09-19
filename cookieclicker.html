@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookie Clicker</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f7e7ce;
+        margin: 0;
+        padding: 0;
+      }
+      .cookie {
+        width: 150px;
+        height: 150px;
+        background-image: url("cookie.png"); /* Replace with the path to your cookie image */
+        background-size: cover;
+        background-position: center;
+        border-radius: 50%;
+        margin: 20px auto;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+      .stats {
+        font-size: 20px;
+        margin: 10px 0;
+      }
+      .upgrade-btn {
+        background-color: #d2691e;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        margin: 10px;
+      }
+      .upgrade-btn:hover {
+        background-color: #a0522d;
+      }
+      .login-container {
+        margin: 20px;
+      }
+      .login-container input {
+        padding: 10px;
+        font-size: 16px;
+        margin-right: 10px;
+      }
+      .login-container button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Cookie Clicker</h1>
+    <div class="login-container">
+      <input type="text" id="username" placeholder="Enter username" />
+      <input type="password" id="password" placeholder="Enter password" />
+      <button id="loginBtn">Login</button>
+    </div>
+    <div class="stats">
+      <p id="cookieCount">Cookies: 0</p>
+      <p id="autoCount">Auto Clickers: 0</p>
+      <p id="upgradePrices"></p>
+    </div>
+    <div class="cookie" id="cookie"></div>
+    <button class="upgrade-btn" id="autoClickerBtn">Buy Auto Clicker</button>
+    <button class="upgrade-btn" id="doubleCookiesBtn">
+      Double Cookies Per Click
+    </button>
+
+    <script>
+      let cookies = 0;
+      let autoClickers = 0;
+      let cookiesPerClick = 1;
+
+      let autoClickerCost = 50; // Higher base price
+      let doubleCookiesCost = 200; // Higher base price
+
+      let isAdmin = false; // Default user is not an admin
+
+      const cookieEl = document.getElementById("cookie");
+      const cookieCountEl = document.getElementById("cookieCount");
+      const autoCountEl = document.getElementById("autoCount");
+      const autoClickerBtn = document.getElementById("autoClickerBtn");
+      const doubleCookiesBtn = document.getElementById("doubleCookiesBtn");
+      const upgradePricesEl = document.getElementById("upgradePrices");
+      const loginBtn = document.getElementById("loginBtn");
+      const usernameInput = document.getElementById("username");
+      const passwordInput = document.getElementById("password");
+      const loginContainer = document.querySelector(".login-container");
+
+      function updateDisplay() {
+        cookieCountEl.textContent = `Cookies: ${cookies}`;
+        autoCountEl.textContent = `Auto Clickers: ${autoClickers}`;
+        upgradePricesEl.textContent = `Auto Clicker Cost: ${autoClickerCost} | Double Cookies Cost: ${doubleCookiesCost}`;
+      }
+
+      loginBtn.addEventListener("click", () => {
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        // Check for admin credentials
+        if (username === "admin" && password === "password123") {
+          isAdmin = true;
+          autoClickerCost = Math.floor(autoClickerCost / 2); // Admin gets half price
+          doubleCookiesCost = Math.floor(doubleCookiesCost / 2);
+          alert("Logged in as admin! Prices are now lower.");
+          loginContainer.style.display = "none"; // Hide the login form
+        } else {
+          alert("Invalid username or password. Please try again.");
+        }
+        updateDisplay();
+      });
+
+      cookieEl.addEventListener("click", () => {
+        cookies += cookiesPerClick;
+        updateDisplay();
+      });
+
+      autoClickerBtn.addEventListener("click", () => {
+        if (cookies >= autoClickerCost) {
+          cookies -= autoClickerCost;
+          autoClickers++;
+          autoClickerCost = Math.floor(autoClickerCost * 1.8); // Higher price increase
+          updateDisplay();
+        }
+      });
+
+      doubleCookiesBtn.addEventListener("click", () => {
+        if (cookies >= doubleCookiesCost) {
+          cookies -= doubleCookiesCost;
+          cookiesPerClick *= 2;
+          doubleCookiesCost = Math.floor(doubleCookiesCost * 2.5); // Higher price increase
+          updateDisplay();
+        }
+      });
+
+      setInterval(() => {
+        cookies += autoClickers;
+        updateDisplay();
+      }, 1000);
+
+      updateDisplay();
+    </script>
+  </body>
+</html>
